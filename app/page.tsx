@@ -1,65 +1,86 @@
-import Image from "next/image";
+'use client';
+import { useState, useEffect } from "react";
+
+type Props = {
+  id?: number;
+  date?: string;
+  concept: string;
+  category: string;
+  amount: number;
+};
 
 export default function Home() {
+  const [data, setData] = useState<Props[]>([]);
+  const date = new Date();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/expenses");
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+ console.log(data);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div>
+      <h1 className="text-2xl text-center m-5">Control gastos</h1>
+      <section className="w-full flex justify-center relative text-sm">
+        <form action="" className="w-full flex flex-col mx-2">
+          <div className="flex gap-2 items-center mb-1">
+            <label htmlFor="description">Concepto:</label>
+            <input className="border border-gray-300 rounded-2xl text-center " type="text" name="description" />
+          </div>
+          <div className="flex gap-2 items-center mb-1">
+            <label htmlFor="category">Categoria:</label>
+            <select className="border border-gray-300 rounded-2xl text-center " name="category" id="category">
+              <option value="meat" disabled selected>Mercado</option>
+              <option value="car">Auto</option>  
+              <option value="gastos-fijos">Gastos fijos</option>
+              <option value="restaurants">Restaurantes</option>
+              <option value="entertainment">Entretenimiento</option>
+              <option value="others">Otros</option>
+            </select>
+          </div>
+          <div className="flex gap-2 items-center mb-1">
+            <label htmlFor="amount">Monto:</label>
+            <input className="border border-1 border-gray-300 rounded-2xl text-center " type="number" name="amount" placeholder="22" />
+          </div>
+          <button className="w-full flex justify-end pr-5 absolute top-5 left-0" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </button>
+        </form>
+        
+      </section>
+      <section className="m-2">
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Concepto</th>
+              <th>Categoría</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody className="text-sm">
+            {data.map((item)=> (<tr key={item.data.id}className="text-center border-b border-gray-200">
+              <td className="py-2">{item.data.date}</td>
+              <td className="py-2">{item.data.description}</td>
+              <td className="py-2">{item.data.category}</td>
+              <td className="py-2">{item.data.amount}</td>
+            </tr>))}
+          </tbody>
+        </table>
+      </section>
+      
     </div>
   );
 }
+
