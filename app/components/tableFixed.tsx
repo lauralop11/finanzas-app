@@ -1,6 +1,12 @@
+type Props = {
+  date: string;
+  concept: string;
+  category: string;
+  amount: string;
+}
 
 export default function TableFixed () {
-  const expenses = [
+  const expenses:Props = [
     {date: '01/01/2024', concept: 'Arriendo', category: 'Gastos basicos', amount: '$1.404'},
     {date: '03/01/2024', concept: 'Seguro casa', category: 'Gastos basicos', amount: '$35.69'},
     {date: '04/01/2024', concept: 'Seguro moto', category: 'Gastos basicos', amount: '$17'},

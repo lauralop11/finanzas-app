@@ -8,11 +8,7 @@
 };
 
 export default function TableDinamic () {
- 
-
-   const [data, setData] = useState<Props[]>([]);
- /*  const [form, setForm] */
-  const date = new Date();
+  const [data, setData] = useState<Props[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,6 +23,7 @@ export default function TableDinamic () {
     fetchData();
   }, []);
  console.log(data);
+ 
   return (
     <table className="w-full">
           <thead>
