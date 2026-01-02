@@ -1,10 +1,15 @@
+'use client';
+import { useEffect, useState } from "react";
 
  type Props = {
   id?: number;
-  date?: string;
-  concept: string;
-  category: string;
-  amount: number;
+  data: {
+    date?: string;
+    description: string;
+    category: string;
+    amount: number | string;
+  }
+  
 };
 
 export default function TableDinamic () {
@@ -23,7 +28,7 @@ export default function TableDinamic () {
     fetchData();
   }, []);
  console.log(data);
- 
+
   return (
     <table className="w-full">
           <thead>
