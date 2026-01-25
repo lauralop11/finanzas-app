@@ -6,6 +6,7 @@ type Props = {
 }
 
 export default function TableFixed () {
+
   const expenses: Props[] = [
     {date: '01/01/2024', description: 'Arriendo', category: 'Gastos basicos', amount: 1.404},
     {date: '03/01/2024', description: 'Seguro casa', category: 'Gastos basicos', amount: 35.69},
@@ -17,25 +18,23 @@ export default function TableFixed () {
     {date: '15/01/2024', description: 'Suscripcion apple', category: 'Gastos basicos', amount: 25}, 
   ]
   return (
-    <table className="w-full">
+    <table class="w-full">
       <thead>
         <tr>
-            <th className="w-1/5">Fecha</th>
-            <th className="w-1/5">Descripcion</th>
-            <th className="w-1/5">Categoría</th>
-            <th className="w-1/5">Monto</th>
-            <th className="w-1/5">Pagado</th>
+            <th className="">Fecha</th>
+            <th className="">Concepto</th>
+            <th className="">Monto</th>
+            <th className="">Pagado</th>
           </tr>
       </thead>
       <tbody>
         {expenses.map((expenses, index)=> (
-          <tr key={index}>
-            <td className="text-center w-1/5">{expenses.date}</td>
-            <td className="text-center w-1/5">{expenses.description}</td>
-            <td className="text-center w-1/5">{expenses.category}</td>
-            <td className="text-center w-1/5">{expenses.amount}</td>
-            <td className="text-center w-1/5 cursor-pointer">
-              <label >
+          <tr key={index} >
+            <td className="p-2">{expenses.date}</td>
+            <td className="p-2">{expenses.description}</td>
+            <td className="p-2 text-center">{expenses.amount}</td>
+            <td className="p-2 text-center cursor-pointer">
+              <label className="mb-6">
                 <input type="checkbox" name="paie" className="peer hidden"/>
                 <span className="px-3 py-1 rounded-full text-white bg-red-400 peer-checked:bg-green-400"></span>
               </label>

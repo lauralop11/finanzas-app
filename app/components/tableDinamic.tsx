@@ -9,9 +9,7 @@ import { useEffect, useState } from "react";
     category: string;
     amount: number | string;
   }
-  
 };
-
 export default function TableDinamic () {
   const [data, setData] = useState<Props[]>([]);
 
@@ -30,24 +28,27 @@ export default function TableDinamic () {
  console.log(data);
 
   return (
-    <table className="w-full">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Concepto</th>
-              <th>Categoría</th>
-              <th>Monto</th>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            {data.map((item)=> (
-              <tr key={item.id} className="text-center border-b border-gray-200">
-                <td className="py-2">{item.data.date}</td>
-                <td className="py-2">{item.data.description}</td>
-                <td className="py-2">{item.data.category}</td>
-                <td className="py-2">{item.data.amount}</td>
-            </tr>))}
-          </tbody>
-        </table>
+    <section className="overflow-hidden">
+      <table className="w-full mt-9">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Concepto</th>
+          <th>Categoría</th>
+          <th>Monto</th>
+        </tr>
+      </thead>
+      <tbody className="">
+        {data.map((item)=> (
+          <tr key={item.id} className="text-center border-b border-gray-200">
+            <td className="py-2">{item.data.date}</td>
+            <td className="py-2">{item.data.description}</td>
+            <td className="py-2">{item.data.category}</td>
+            <td className="py-2">{item.data.amount}</td>
+          </tr>))}
+        </tbody>
+      </table>
+    </section>
+
   )
 }

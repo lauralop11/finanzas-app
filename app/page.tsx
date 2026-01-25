@@ -1,12 +1,15 @@
-import TableFixed from "./components/tableFixed";
+import Button from "./components/btnAddExpenses";
+import TableDinamic from "./components/tableDinamic";
+import Desplegable from "./components/desplegable";
 export default function Home() {
- 
 
   return (
-    <div>
-      <h1 className="text-2xl text-center m-5">Control gastos</h1>
+    <div className="min-h-screen font-mono">
+      <h1 className="text-2xl text-center m-5">Expenses List</h1>
+      <Button />
       <section className="m-2">
-        <TableFixed />
+        <Desplegable/>
+        <TableDinamic/> 
       </section>
     </div>
   );
