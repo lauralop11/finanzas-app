@@ -1,27 +1,26 @@
 'use client';
 import { useState } from 'react';
 
-type FormData = {
-  date: string;
+type ExpensesForm = {
+  date?: string;
   description: string;
   category: string;
   amount: string;
 };
 
 export default function FormAdd () {
-  const [form, setForm] = useState<FormData> ({
+  const [form, setForm] = useState <ExpensesForm> ({
     date: '',
     description: '',
     category: '',
     amount: ''
   });
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const dataForm = Object.fromEntries (new window.FormData(event.target));
+    const dataForm = Object.fromEntries (new window.FormData(event.target as HTMLFormElement));
     const date = new Date().toLocaleDateString ();
     dataForm.date = date;
-    setForm (dataForm);
-    console.log (form);
+    setForm (dataForm as ExpensesForm);
     try {
       const response = await fetch (('api/expenses'), {
         method:'POST',
