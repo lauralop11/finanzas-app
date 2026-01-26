@@ -13,4 +13,17 @@ export async function GET() {
     }
   };
 
-  
+export async function POST (request: Request) {
+  const sql = neon(`${process.env.DATABASE_URL}`);
+  try { 
+    const req = await request.json();
+    const res = await sql `INSERT INTO expenses (data) VALUES (${req}) RETURNING *;`;
+    return NextResponse.json (res);
+  } catch (error) {
+    console.error ('Error adding expense:', error);
+    return  NextResponse.json(
+      { error: "Error adding expense" },
+      { status: 500 }
+    );
+  }
+}

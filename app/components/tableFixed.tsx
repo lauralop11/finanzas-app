@@ -18,7 +18,7 @@ export default function TableFixed () {
     {date: '15/01/2024', description: 'Suscripcion apple', category: 'Gastos basicos', amount: 25}, 
   ]
   return (
-    <table class="w-full">
+    <table className="w-full">
       <thead>
         <tr>
             <th className="">Fecha</th>

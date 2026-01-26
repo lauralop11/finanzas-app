@@ -25,7 +25,6 @@ export default function TableDinamic () {
     }
     fetchData();
   }, []);
- console.log(data);
 
   return (
     <section className="overflow-hidden">
@@ -38,7 +37,7 @@ export default function TableDinamic () {
           <th>Monto</th>
         </tr>
       </thead>
-      <tbody className="">
+      <tbody>
         {data.map((item)=> (
           <tr key={item.id} className="text-center border-b border-gray-200">
             <td className="py-2">{item.data.date}</td>

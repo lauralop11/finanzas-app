@@ -1,8 +1,48 @@
+'use client';
+import { useState } from 'react';
+
+type FormData = {
+  date: string;
+  description: string;
+  category: string;
+  amount: string;
+};
+
 export default function FormAdd () {
-  const handleSubmit = (event) => {
+  const [form, setForm] = useState<FormData> ({
+    date: '',
+    description: '',
+    category: '',
+    amount: ''
+  });
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const dataForm = Object.fromEntries (new window.FormData(event.target));
-    console.log(dataForm);
+    const date = new Date().toLocaleDateString ();
+    dataForm.date = date;
+    setForm (dataForm);
+    console.log (form);
+    try {
+      const response = await fetch (('api/expenses'), {
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify (dataForm),
+      })
+      console.log (response.status);
+      if (response.ok) {
+        console.log ('Expenses Added');
+        setForm ({
+          date: '',
+          description: '',
+          category: '',
+          amount: ''
+        });  
+      }
+    } catch (error) {
+      console.error('Error Page form:', error);
+    }
   }
   return (
     <section className="w-75 flex justify-center relative">
@@ -22,10 +62,8 @@ export default function FormAdd () {
           <label htmlFor="amount">Monto:</label>
           <input className="border border-gray-300 rounded-2xl text-center " type="number" name="amount" placeholder="22" />
         </div>
-        <button className="w-full flex justify-end pr-5 absolute top-9 left-0" type="submit">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
+        <button className="absolute top-9 right-0 border-2 rounded-2xl p-2" type="submit">
+          Add
         </button>
       </form>   
     </section>
